@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/templatemo-kind-heart-charity.css" rel="stylesheet">
+    <link href="/css/bootstrap-icons.css" rel="stylesheet">
+
+    <title>All Journal Entries</title>
+    <style>
+        
+        .entry-card {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        
+        .sidebar {
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 20px;
+            height: 100%;
+            border-right: 1px solid #ddd;
+        }
+
+        .sidebar a {
+            color: #333;
+            text-decoration: none;
+            display: block;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin: 5px 0;
+        }
+
+        .sidebar a.active, .sidebar a:hover {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .entry-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .entry-card h5 {
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .entry-card small {
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-12 d-flex flex-wrap">
+                    <p class="d-flex me-4 mb-0">
+                        <i class="bi-geo-alt me-2"></i>
+                        Mumbai, India
+                    </p>
+                </div>
+                <div class="col-lg-3 col-12 ms-auto d-lg-block d-none">
+                    <p class="d-flex mb-0">
+                        <i class="bi-envelope me-2"></i>
+                        <a href="mailto:info@company.com">soulbuddy@company.com</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-light shadow-lg">
+        <div class="container">
+            <a class="navbar-brand" href="http://localhost:5500/index.html#section_1">
+                <img src="images/logo.png" class="logo img-fluid" alt="SoulBuddy Logo">
+                <span>
+                    SoulBuddy
+                    <small>Mental Health Buddy</small>
+                </span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="http://localhost:5500/index.html#section_1">Home</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container my-5">
+        <div class="row">
+            <!-- Sidebar -->
+            <aside class="col-lg-3">
+                <div class="sidebar">
+                    <h4>Menu</h4>
+                    <a href="journal.html">New Entry</a>
+                    <a href="all_entries.html" class="active">View All Entries</a>
+                    <a href="rewards.html">Rewards</a>
+                </div>
+            </aside>
+            <!-- Content -->
+            <section class="col-lg-9">
+                <h2>All Journal Entries</h2>
+                <div id="entries">
+                    <!-- Entries will be dynamically loaded here -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Fetch and display entries with embedded delete functionality
+        function loadAllEntries() {
+            fetch('/journal')
+                .then(response => response.json())
+                .then(data => {
+                    const entriesContainer = document.getElementById('entries');
+                    entriesContainer.innerHTML = ''; // Clear existing entries
+    
+                    data.entries.forEach(entry => {
+                        const entryCard = `
+                            <div class="entry-card">
+                                <h5>${entry.title}</h5>
+                                <p>${entry.content}</p>
+                                <small>${new Date(entry.date).toLocaleString()}</small>
+                                <button class="btn btn-danger btn-sm" onclick="deleteEntry(${entry.id})">Delete</button>
+                            </div>
+                        `;
+                        entriesContainer.innerHTML += entryCard;
+                    });
+                })
+                .catch(err => console.error('Failed to load entries:', err));
+        }
+    
+        // Delete an entry
+        function deleteEntry(entryId) {
+            fetch(`/journal/${entryId}`, { method: 'DELETE' })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.status === 'success') {
+                        alert('Entry deleted successfully');
+                        loadAllEntries(); // Reload entries
+                    } else {
+                        alert('Failed to delete entry');
+                    }
+                })
+                .catch(err => console.error('Error deleting entry:', err));
+        }
+    
+        // Load entries on page load
+        document.addEventListener('DOMContentLoaded', loadAllEntries);
+    </script>
+    
+    
+</body>
+</html>

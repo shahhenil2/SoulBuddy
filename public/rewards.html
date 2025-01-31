@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="Rewards Page">
+        <meta name="author" content="SoulBuddy">
+
+        <title>SoulBuddy</title>
+
+        <!-- CSS FILES -->        
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <link href="css/bootstrap-icons.css" rel="stylesheet">
+
+        <link href="css/templatemo-kind-heart-charity.css" rel="stylesheet">
+
+        <style>
+            .p-b-c {
+                margin: 20px 0;
+            }
+            .p-b {
+                width: 100%;
+                background-color: #e9ecef;
+                border-radius: 5px;
+                overflow: hidden;
+            }
+            .p-b span {
+                display: block;
+                height: 20px;
+                background-color: #007bff;
+                width: 0%;
+            }
+        </style>
+
+    </head>
+    
+    <body>
+
+        <header class="site-header">
+            <div class="container">
+                <div class="row">
+                    
+                    <div class="col-lg-8 col-12 d-flex flex-wrap">
+                        <p class="d-flex me-4 mb-0">
+                            <i class="bi-geo-alt me-2"></i>
+                            Mumbai, India
+                        </p>
+
+                        
+                    </div>
+
+                    <div class="col-lg-3 col-12 ms-auto d-lg-block d-none">
+                        <p class="d-flex mb-0">
+                            <i class="bi-envelope me-2"></i>
+
+                            <a href="mailto:info@company.com">
+                                soulbuddy@company.com
+                            </a>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </header>
+
+        <nav class="navbar navbar-expand-lg bg-light shadow-lg">
+            <div class="container">
+                <a class="navbar-brand" href="index.html#section_1">
+                    <img src="images/logo.png" class="logo img-fluid" alt="">
+                    <span>
+                        SoulBuddy
+                        <small>Mental Health Buddy</small>
+                    </span>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link click-scroll" href="http://localhost:5500/index.html#section_1">Home</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main>
+
+            <section class="donate-section">
+                <div class="section-overlay"></div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 col-12 mx-auto">
+                            <form class="custom-form donate-form" id="rewards" role="form">
+                                <div style="font-size: 4rem;color: #FFD700;text-align: center;">🏅</div>
+                                <h1 class="mb-4" style="color:#000000;text-align: center;">You're Doing Amazing!</h1>
+
+                                <h3 class="mb-4" style="color:#5bc1ac;text-align: center;">You're currently at <strong id="level">  Level 1</strong></h3>
+
+                                <h5 class="mb-4" style="color:#000000;text-align: center;">You need <strong id="entries-left">3</strong> more entries to reach the next level!</h5>
+
+                                <h6 class="mb-4" style="color:#000000;text-align: center; font-style: italic;color: #555; margin-top: 20px;">🌟 "Keep going! Every small step matters." 🌟</h6>
+
+                                <button type="submit" class="form-control mt-4" >Create Another Entry</button>
+                                
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <!-- JAVASCRIPT FILES -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.sticky.js"></script>
+        <script src="js/counter.js"></script>
+        <script src="js/custom.js"></script>
+
+        <script>
+            function updateLevel() {
+                fetch('/level')
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('level').textContent = `Level ${data.level}`;
+                        document.getElementById('entries-left').textContent = data.entriesToNextLevel;
+                        document.getElementById('progress').style.width = `${((3 - data.entriesToNextLevel) / 3) * 100}%`;
+                    })
+                    .catch(err => console.error('Failed to fetch level info:', err));
+            }
+            
+            document.getElementById('rewards').addEventListener('submit', function redirectToJournal() {
+                event.preventDefault();
+
+                window.location.href = 'journal.html'; // Update with the correct path if necessary
+            });
+        
+            document.addEventListener('DOMContentLoaded', updateLevel);
+        </script>        
+
+    </body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/templatemo-kind-heart-charity.css" rel="stylesheet">
+    <link href="/css/bootstrap-icons.css" rel="stylesheet">
+
+    <title>My Journal</title>
+    <style>
+        .sidebar {
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 20px;
+            height: 100%;
+            border-right: 1px solid #ddd;
+        }
+
+        .sidebar a {
+            color: #333;
+            text-decoration: none;
+            display: block;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin: 5px 0;
+        }
+
+        .sidebar a.active, .sidebar a:hover {
+            background-color: #d4edda;
+            color: #155724;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-12 d-flex flex-wrap">
+                    <p class="d-flex me-4 mb-0">
+                        <i class="bi-geo-alt me-2"></i>
+                        Mumbai, India
+                    </p>
+                </div>
+                <div class="col-lg-3 col-12 ms-auto d-lg-block d-none">
+                    <p class="d-flex mb-0">
+                        <i class="bi-envelope me-2"></i>
+                        <a href="mailto:info@company.com">soulbuddy@company.com</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-light shadow-lg">
+        <div class="container">
+            <a class="navbar-brand" href="http://localhost:5500/index.html#section_1">
+                <img src="images/logo.png" class="logo img-fluid" alt="SoulBuddy Logo">
+                <span>
+                    SoulBuddy
+                    <small>Mental Health Buddy</small>
+                </span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="http://localhost:5500/index.html#section_1">Home</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container my-5">
+        <div class="row">
+            <!-- Sidebar -->
+            <aside class="col-lg-3">
+                <div class="sidebar">
+                    <h4>Menu</h4>
+                    <a href="journal.html" class="active">New Entry</a>
+                    <a href="all_entries.html">View All Entries</a>
+                    <a href="rewards.html">Rewards</a>
+                </div>
+            </aside>
+            <!-- Content -->
+            <section class="col-lg-9">
+                <h2>Create a New Journal Entry</h2>
+                <div id="recent-entry" class="entry-section mb-3 p-3 border rounded">
+                    <h4 id="recentTitle">Why I'm Writing</h4>
+                    <p id="recentContent">Welcome to your new journal! Take a few minutes to jot down the reasons why you want to journal...</p>
+                </div>
+                <form id="journalForm">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Entry Title</label>
+                        <input type="text" id="title" class="form-control" placeholder="Enter your title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="entryDate" class="form-label">Date</label>
+                        <input type="date" id="entryDate" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="content" class="form-label">Your Entry</label>
+                        <textarea id="content" class="form-control" rows="5" placeholder="Write your thoughts..." required></textarea>
+                    </div>
+                    <div class="custom-form donate-form">
+                    <button type="submit" class="form-control mt-4">Save Entry</button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('journalForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const title = document.getElementById('title').value;
+            const date = document.getElementById('entryDate').value;
+            const content = document.getElementById('content').value;
+
+            fetch('/journal', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title, content, date })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        alert('Entry saved successfully!');
+                        document.getElementById('journalForm').reset();
+                    }
+                });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>SoulBuddy</title>
+
+        <link href="/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/css/bootstrap-icons.css" rel="stylesheet">
+        <link href="/css/templatemo-kind-heart-charity.css" rel="stylesheet">
+
+    </head>
+    
+    <body>
+
+        <header class="site-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-12 d-flex flex-wrap">
+                        <p class="d-flex me-4 mb-0">
+                            <i class="bi-geo-alt me-2"></i>
+                            Mumbai, India
+                        </p>
+                    </div>
+                    <div class="col-lg-3 col-12 ms-auto d-lg-block d-none">
+                        <p class="d-flex mb-0">
+                            <i class="bi-envelope me-2"></i>
+                            <a href="mailto:info@company.com">soulbuddy@company.com</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <nav class="navbar navbar-expand-lg bg-light shadow-lg">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">
+                    <img src="images/logo.png" class="logo img-fluid" alt="">
+                    <span>
+                        SoulBuddy
+                        <small>Mental Health Buddy</small>
+                    </span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link click-scroll" href="http://localhost:5500/index.html#section_1">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link click-scroll" href="http://localhost:5500/index.html#section_5">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main>
+            <section class="donate-section">
+                <div class="section-overlay"></div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 col-12 mx-auto">
+                            <form class="custom-form donate-form" action="/analyze" method="POST" role="form">
+                                <h3 class="mb-4 text-center">Mood Tracker</h3>
+                                <div class="row">
+                                    <div class="col-lg-12 col-12">
+                                        <h5 class="mb-3">Track your Mood :)</h5>
+                                    </div>
+                                    <div class="col-lg-12 col-12">
+                                        <h5 class="mt-1">Your Mood Analysis:</h5>
+                                    </div>
+                                    <div class="col-lg-12 col-12">
+                                        <p class="mt-1"><strong>Your Input:</strong> <%= user_input %></p>
+                                    </div>
+                                    <div class="col-lg-12 col-12">
+                                        <p class="mt-1"><strong>Detected Mood:</strong> <%= mood %></p>
+                                    </div>
+                                    <div class="col-lg-12 col-12">
+                                        <p class="mt-1"><strong>Suggestion:</strong> <%= suggestion %></p>
+                                    </div>
+                                    <button type="submit" class="form-control mt-4"><a href="/" style="color: white;">Analyze Again</a></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- JAVASCRIPT FILES -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.sticky.js"></script>
+        <script src="js/counter.js"></script>
+        <script src="js/custom.js"></script>
+        <script src="js/textarea.js"></script>
+    </body>
+</html>
