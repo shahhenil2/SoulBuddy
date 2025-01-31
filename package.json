@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^44.1.0",
+    "@huggingface/inference": "^2.8.1",
+    "body-parser": "^1.20.3",
+    "ckeditor4": "^4.25.0",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2"
+  }
+}
